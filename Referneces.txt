@@ -1,0 +1,8 @@
+Referneces to branches
+
+
+https://uoftcoders.github.io/studyGroup/lessons/git/branches/lesson/
+
+
+https://www.atlassian.com/git/tutorials/syncing
+
