@@ -9,7 +9,11 @@ html {
     display: grid;
     justify-items: center;
     align-items: center;
-    background-color: #3a3a3a;
+
+    background-image: url('background.jpg');
+    background-size:cover;
+
+    /*background-color: #3a3a3a;*/
   }
   
   #main-holder {
@@ -18,11 +22,23 @@ html {
     display: grid;
     justify-items: center;
     align-items: center;
-    background-color: white;
+
+    background-image: url('frontDoor.png');
+    background-size:cover;
+
     border-radius: 7px;
     box-shadow: 0px 0px 5px 2px black;
   }
-  
+  #login-header{
+    font-family: "Times New Roman", Times, serif;
+    font-size: 40px;
+    font-weight: 50px;  
+    background-color: #e1c699;
+
+    padding: 5px;
+    border:5px;
+    border-style:double;
+  }
   #login-error-msg-holder {
     width: 100%;
     height: 100%;
@@ -53,6 +69,13 @@ html {
     display: grid;
     justify-items: center;
     align-items: center;
+
+    padding: 25px;
+    border: 3px solid black;
+    /*background-image: url('frontDoor.png');
+    background-size:contain;
+    background-position:22px;*/
+    background-color: lightblue;
   }
   
   .login-form-field::placeholder {
