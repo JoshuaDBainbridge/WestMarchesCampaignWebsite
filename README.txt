@@ -8,3 +8,6 @@ Future goals:
     -character compendium 
     -map canvas 
     
+Backend: 
+    -data base 
+    -accounts
