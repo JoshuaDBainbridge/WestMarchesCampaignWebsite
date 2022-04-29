@@ -7,7 +7,8 @@ Future goals:
     -inventory manager/ trading 
     -character compendium 
     -map canvas 
-    
+    -world info
+    -scheduling 
 Backend: 
     -data base 
     -accounts
