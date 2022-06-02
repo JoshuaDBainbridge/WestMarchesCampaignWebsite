@@ -1,0 +1,19 @@
+#old {
+    width: 1120px;
+    height: 360px;
+
+    border: 1px; 
+    border-style: dotted;
+    border-color: black;
+    
+}
+#mapDiv{
+    text-align: center;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+canvas {
+    border: 1px solid black;
+    width: 560px;
+    height: 360px;
+  }
