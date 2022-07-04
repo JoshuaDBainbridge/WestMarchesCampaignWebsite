@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="main-page.css">
+    <link rel="stylesheet" href="main-page-dashboard.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="main-page.js"></script>
+  </head>
+  <body>
+                <!-- START OF HYPERLINK LIST  -->
+    <div class="sidebar">
+      <div class="logo-details">
+        <i><img src="planetLogo.jpg" class="logo_pic" onclick="sidebarFunction()"></i>
+        <!-- <img src="planetLogo.jpg" class="logo_pic"> -->
+        <span class="logo_name">  West Marches</span> 
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="" class="active">
+            <!-- <i class='bx bx-grid-alt' > -->
+            <i>
+              <img src="planetLogo.jpg" class="logo_pic">
+            </i>
+            <span class="links_name">Dashboard</span>
+          </a>
+        </li> 
+        <li>
+          <a href="../WorldMap/worldMapPage.html">
+            <i class='bx bx-map-alt'></i>
+            <span class="links_name">Player World Map</span>
+          </a>
+        </li> 
+        <li>
+          <a href="#">
+            <i class='bx bx-church'></i>
+            <span class="links_name">Old World</span>
+          </a>
+        </li> 
+        <li>
+          <a href="#">
+            <i class='bx bx-book'></i>
+            <span class="links_name"> Campaign Notes</span>
+          </a>
+        </li> 
+        <li>
+          <a href="../Calendar/CalendarPage.html">
+            <i class='bx bx-calendar'></i>
+            <span class="links_name">Calendar</span>
+          </a>
+        </li> 
+        <li>
+          <a href="#">
+            <i class='bx bx-store'></i>
+            <span class="links_name">Item Market</span>
+          </a>
+        </li> 
+        <li>
+          <a href="#">
+            <i class='bx bx-group'></i>
+            <span class="links_name">My Characters</span>
+          </a>
+        </li> 
+      </ul>
+    </div> 
+                <!-- END OF HYPERLINK LIST  -->
+                <!-- START TOP NAV BAR -->
+    <section class="home-section">
+      <nav>
+        <div class="sidebar-button"  onclick="sidebarFunction()">
+          <i class='bx bx-menu sidebarBtn'></i>
+          <span class="dashboard">Dashboard</span>
+        </div>
+        <div class="search-box">
+          <input type="text" placeholder="Search...">
+          <i class='bx bx-search' ></i>
+        </div>
+        <div class="dropdown">
+          <i> USER NAME</i>
+          <div class="dropdown-content">
+            <a href="#">Settings</a>
+            <a href="#">Donations</a>
+            <a href="../LoginPage/loginPage.html">Log Off</a>
+          </div>
+        </div>
+      </nav>
+                <!-- END TOP NAV BAR -->
+      <div class="home-content">
+        <!-- <div class="overview-boxes"> -->
+          <!-- <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Order</div>
+              <div class="number">40,876</div>
+              <div class="indicator">
+                <i class='bx bx-up-arrow-alt'></i>
+                <span class="text">Up from yesterday</span>
+              </div>
+            </div>
+            <i class='bx bx-cart-alt cart'></i>
+          </div> -->
+          <!-- <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Sales</div>
+              <div class="number">38,876</div>
+              <div class="indicator">
+                <i class='bx bx-up-arrow-alt'></i>
+                <span class="text">Up from yesterday</span>
+              </div>
+            </div>
+            <i class='bx bxs-cart-add cart two' ></i>
+          </div> -->
+          <!-- <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Profit</div>
+              <div class="number">$12,876</div>
+              <div class="indicator">
+                <i class='bx bx-up-arrow-alt'></i>
+                <span class="text">Up from yesterday</span>
+              </div>
+            </div>
+            <i class='bx bx-cart cart three' ></i>
+          </div> -->
+          <!-- <div class="box">
+            <div class="right-side">
+              <div class="box-topic">Total Return</div>
+              <div class="number">11,086</div>
+              <div class="indicator">
+                <i class='bx bx-down-arrow-alt down'></i>
+                <span class="text">Down From Today</span>
+              </div>
+            </div>
+            <i class='bx bxs-cart-download cart four' ></i>
+          </div>-->
+        <!-- </div>  -->
+        <div class="sales-boxes">
+          <div class="announcements">
+            <div class="title">Announcements</div>
+            <p id="announcement_text"> This is place holding text!</p>
+          </div>
+        </div>  
+        <div class="sales-boxes">
+          <div class="recent-sales box">
+            <div class="title">Character Status</div>
+              <div class="sales-details">
+                <ul class="details">
+                  <li class="topic">Name</li>
+                </ul>
+                <ul class="details">
+                  <li class="topic">Level</li>
+                </ul>
+                <ul class="details">
+                  <li class="topic">Status</li>
+                </ul>
+                <ul class="details">
+
+                </ul>
+              </div>
+              <div class="button">
+                <a href="#">See All</a>
+              </div>
+            </div>
+            <div class="top-sales box">
+              <div class="title">Up Coming Quests</div>
+           
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+
+
+      <!-- <div class="topnav">
+        <a class="active" href="#home">Home</a>
+        <a href="#sessions">Sessions</a>
+        <a href="#characters">Characters</a>
+        <a href="./worldMapPage.html">World Map</a>
+        <a href="#market">Market</a>
+        <a href="#background">Background</a>
+        <a id= "logoff", href="#about", onclick="logOffFunction()">Log Off</a>
+      </div>
+      <body>
+          <button id="logOff-button"> Log Off</button>
+      </body> -->

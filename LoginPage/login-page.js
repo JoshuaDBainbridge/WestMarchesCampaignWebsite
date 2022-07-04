@@ -10,7 +10,7 @@ loginButton.addEventListener("click", (e) => {
 
     if (username === "user" && password === "user") {
         alert("You have successfully logged in.");
-        window.location = "./mainPage.html";
+        window.location = "../MainPage/mainPage.html";
         //location.reload();
     } else {
         loginErrorMsg.style.opacity = 1;
