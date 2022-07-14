@@ -31,7 +31,7 @@ context.stroke();
 // Add the event listeners for mousedown, mousemove, and mouseup
 myPics.addEventListener('mousedown', e => {
   x = e.offsetX;
-  y = e.offsett;
+  y = e.offsetY;
   isDrawing = true;
   console.log(x+" "+y)
 });
@@ -52,6 +52,7 @@ window.addEventListener('mouseup', e => {
     isDrawing = false;
   }
 });
+
 
 function drawLine(context, x1, y1, x2, y2) {
   console.log("DRAW: x,y" + x1 +" "+y1+" offX offY "+x2+" "+y2);

@@ -4,9 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>World Map</title>
-        <link rel="stylesheet" href="main-page.css">
+        <!-- <link rel="stylesheet" href="main-page.css"> -->
         <link rel="stylesheet" href="worldmap-page.css">
-        <script defer src="worldmap-page.js"></script>
+        <!-- <script defer src="worldmap-page.js"></script> -->
+        <script defer src="worldmap-page-test.js"></script>
       </head>
       <div class="topnav">
         <a href="../MainPage/mainPage.html">Home</a>
@@ -17,7 +18,17 @@
         <a href="#background">Background</a>
         <a id= "logoff", href="#about", onclick="logOffFunction()">Log Off</a>
       </div>
-      <div id = "mapDiv">
-        <canvas id="myPics" width="560" height="360"></canvas>
-      </div>
+      <section class="container">
+        <div id="toolbar">
+          <img class="shipImage" scr = "ship.jpg">
+          <button id="togglePaint"> Toggle </button>
+        </div>
+        <div id="mapDiv">
+          <div class="drawing-board">
+              <canvas id="drawing-board"></canvas>
+          </div>
+        </div>  
+        <div id="toolbar2">
+        </div>
+    </section>
 </html>

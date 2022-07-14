@@ -7,13 +7,48 @@
     border-color: black;
     
 }
-#mapDiv{
-    text-align: center;
-    padding-top: 3%;
-    padding-bottom: 3%;
-}
+
 canvas {
     border: 1px solid black;
-    width: 560px;
-    height: 360px;
+    /* width: 1120;
+    height: 1120; 
+    min-width: auto;
+    min-height: auto; */
   }
+
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    color: white;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+}
+
+#toolbar {
+    display: flex;
+    flex-direction: column;
+    /* padding: 5px; */
+    width: 9%;
+    /* background-color: lightblue; */
+    background-image: url("ship.jpg");
+    background-repeat: no-repeat; 
+    background-position: center;
+    background-size: cover;
+}
+#toolbar2 {
+    display: flex;
+    align-content: left;
+    flex-direction: column;
+    padding: 5px;
+    width: 9%;
+
+    background-image: url("land.jpg");
+    background-repeat: no-repeat; 
+    background-position: center;
+    background-size: cover;
+}
