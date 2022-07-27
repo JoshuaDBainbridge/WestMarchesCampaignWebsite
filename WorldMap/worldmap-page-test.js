@@ -20,14 +20,14 @@ class Line {
 }
 
 class Tile {
-  constructor(isActive, x, y, r, ground, dir, id){
+  constructor(isActive, x, y, r, ground, dir, tileSelected){
     this.active = isActive;
     this.xPos = x; 
     this.yPos = y; 
     this.tileR = r;
-    this.terrain = ground; 
+    this.terrain = ground; //water, grass, empty 
     this.gradDir = dir; 
-    this.tileID = id;
+    this.select = tileSelected; 
   }
   setX(x){
     this.xPos = x;
@@ -61,8 +61,8 @@ const canvasOffsetY = canvas.offsetTop;
 canvas.width = window.innerWidth - canvasOffsetX - window.innerWidth*(0.1);
 canvas.height = window.innerHeight - canvasOffsetY - window.innerHeight*(0.1);
 
-const mapRows = 30;
-const mapCols = 15;
+const mapRows = 2;
+const mapCols = 1;
 const a = 2 * Math.PI / 6;
 const defaultR = 50
 
@@ -70,7 +70,11 @@ const map = [];
 
 let isPainting = false;
 let isPanning = false;
-let togglePaint = true;
+let isSelect = false;
+
+let modeActive = false; 
+let mode = " ";
+
 let lineWidth = 5;
 let startX;
 let startY;
@@ -85,7 +89,21 @@ let r = mapScale * defaultR;
 // ------------------------------- Buttons 
 toolbar.addEventListener('click', e => {
   if (e.target.id === 'togglePaint') {
-    togglePaint = !(togglePaint);
+    mode = "paint";
+    return;
+  }
+  if (e.target.id === 'togglePan') {
+    mode = "pan";
+    return;
+  }
+  if (e.target.id === 'toggleSelect') {
+    mode = "select";
+    console.log(e.clientX-canvasOffsetX, e.clientY-canvasOffsetY);
+    return;
+  }
+  if(e.target.id === 'toggleNothing'){
+    mode = " "; 
+    return;
   }
 });
 // ------------------------------- End Buttons
@@ -96,16 +114,14 @@ function init() {
 init();
 // ------------------------------- Make Map
 function createMap(){  
-  var id = 0; 
   for(var j = 0; j < 2*mapRows; j++){
     var temp = [];
     for(var i = 0; i < mapCols; i++){
       if(j == 0 || j == 1|| j == 2|| i == 0 || i == mapCols-1 || j == 2*mapRows-1 || j == 2*mapRows-2 || j == 2*mapRows-3 ){ //i == 0 || i == mapCols-1 || j == 2*mapRows-1 || j == 2*mapRows-1 ){
-        temp.push(new Tile(true, 0,0,r,"water",Math.floor(Math.random()*(4)),id)); 
+        temp.push(new Tile(true, 0,0,r,"water",Math.floor(Math.random()*(4)),false)); 
       }else{
-        temp.push(new Tile(true, 0,0,r,"empty",Math.floor(Math.random()*(4)),id)); 
+        temp.push(new Tile(true, 0,0,r,"empty",Math.floor(Math.random()*(4)),false)); 
       }
-      id++; 
     }
     map.push(temp);
   }
@@ -153,7 +169,7 @@ function colorTile(biom, dir, x,y,r){
 
   return grd; 
 }
-function drawHexagon(x, y, row, col, isSelected) {
+function drawHexagon(x, y, row, col) {
   ctx.beginPath();
   for (var i = 0; i < 6; i++) {
     ctx.lineTo(x + r*Math.cos(a * i), y + r* Math.sin(a * i));
@@ -163,7 +179,7 @@ function drawHexagon(x, y, row, col, isSelected) {
     // no fill no out line
   }else{
     if(map[row][col].terrain != "empty"){
-      if(isSelected){
+      if(map[row][col].select){
         ctx.fillStyle = colorTile("select", map[row][col].gradDir, x,y,r);
       }else{
         ctx.fillStyle = colorTile(map[row][col].terrain, map[row][col].gradDir, x,y,r);
@@ -183,17 +199,16 @@ function makeMap(mapStartX, mapStartY, rows, columns){
   var y = mapStartY;
   for(var j = 0; j < rows; j++){
     for (var i = 0; i < columns; i++){
-      drawHexagon(x, y,(j*2)+1,i, false);
+      drawHexagon(x, y,(j*2)+1,i);
       //----
       map[(j*2)+1][i].setX(x);
       map[(j*2)+1][i].setY(y);
-      map[(j*2)+1][i].showAll();
       //----
       x+=(r + r*Math.sin((30*Math.PI)/180)); 
-      drawHexagon(x, y-(r*Math.cos((30*Math.PI)/180)),(j*2),i,false);
+      drawHexagon(x, y-(r*Math.cos((30*Math.PI)/180)),(j*2),i);
       //----
       map[(j*2)][i].setX(x);
-      map[(j*2)][i].setY(y);
+      map[(j*2)][i].setY(y-(r*Math.cos((30*Math.PI)/180)));
       //----
       x+=(r + r*Math.sin((30*Math.PI)/180)); 
     }
@@ -205,24 +220,35 @@ function makeMap(mapStartX, mapStartY, rows, columns){
 // ------------------------------- Select
 function select(mouseX, mouseY){
   console.log("searching");
-  var diff = 1000; 
   var temp = 0; 
+  var distance = 2 * r; 
   var hexJ, hexI, tempX, tempY;
   for (var j = 0; j < 2*mapRows; j++){
     for(var i=0; i < mapCols; i++){
-      tempX = map[j][i].getX - (mouseX - canvasOffsetX);
-      tempY = map[j][i].getY - (mouseY - canvasOffsetY);
-      console.log(tempX + " " + tempY);
+
+      console.log("MOUSE: " + (mouseX - canvasOffsetX) + " , " + (mouseY - canvasOffsetY))
+      console.log("MAP: " + map[j][i].xPos + " , " + map[j][i].yPos)
+
+
+      map[j][i].select = false; 
+      tempX = map[j][i].xPos - (mouseX - canvasOffsetX);
+      tempY = map[j][i].yPos - (mouseY - canvasOffsetY);
       temp = Math.sqrt((tempX*tempX)+(tempY*tempY));
 
-      if(diff < temp){
-        diff = temp; 
+      console.log("I,J" + i + "," + j + " temp: " + temp);
+      if(temp < r && temp < distance){
+        distance = temp; 
         hexI = i; 
         hexJ = j;
       }
     }
   }
-  drawHexagon(map[j][i].getX, map[j][i].getY, j,i,true);
+  if (hexI != null){
+    console.log(hexI + " " + hexJ);
+    map[hexJ][hexI].select = true; 
+    ctx.clearRect(0,0, canvas.width, canvas.height);
+    makeMap(currentMapX,currentMapY,mapRows,mapCols); 
+  } 
 }
 // ------------------------------- Select End
 // ------------------------------- Panning
@@ -246,42 +272,48 @@ function draw(x,y){
 // ------------------------------- Painting End
 // ------------------------------- Mouse Listeners 
 const move = (e) => {
-  if(isPanning){
+  if(mode == "select"){
+    select(e.clientX, e.clientY);
+    return;
+  }
+  if(!modeActive){
+    return;
+  }
+  if(mode == "pan"){
     pan(e.clientX, e.clientY);
     return;
   }
-  if(!isPainting) {
-      return;
+  if(mode == "paint") {
+    draw(e.clientX,e.clientY)
+    return;
   }
-  draw(e.clientX,e.clientY)
+  return; 
 }
 canvas.addEventListener('mousedown', (e) => {
-  if(togglePaint){
-    isPainting = true;
-    isPanning = false; 
+  modeActive = true;
+  if(mode == "paint"){
     startX = e.clientX;
     startY = e.clientY;
     let newLine = new Line();
     mapDrawings.push(newLine);
-        
-  }else{
-    isPanning = true; 
-    isPainting = false; 
+    return;     
+  }
+  if(mode == "pan"){
     startX = e.clientX - currentMapX;
     startY = e.clientY - currentMapY;
   }
 });
 canvas.addEventListener('mouseup', e => {
-  if(isPainting){
+  if(mode == "painting"){
     mapDrawings[mapDrawings.length-1].showX();
   }
-  isPainting = false;
-  isPanning = false;
+  modeActive = false;
 
   ctx.stroke();
   ctx.beginPath();
 });
 canvas.addEventListener('mousemove', move);
+
 // ------------------------------- Mouse Listeners End
 // ------------------------------- Slider Listener 
 zoomSlider.oninput = function() {
